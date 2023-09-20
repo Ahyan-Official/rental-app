@@ -22,32 +22,87 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bike"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
             android:id="@+id/title_tv"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
+            android:layout_marginStart="10dp"
+
             android:id="@+id/des_tv"/>
         <androidx.appcompat.widget.AppCompatRatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
+            android:layout_marginStart="10dp"
+
             android:numStars="5"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:id="@+id/btn_Basket"
+                android:layout_marginHorizontal="4dp"
+                android:textColor="#000"
+                android:background="@drawable/btn_purple"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+
+                android:textSize="14dp"
+                android:text="Next"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:id="@+id/btn_Panniers"
+                android:layout_marginHorizontal="4dp"
+                android:textColor="#000"
+                android:background="@drawable/btn_purple"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textAllCaps="false"
+                android:text="Panniers"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:id="@+id/btn_City"
+                android:layout_marginHorizontal="4dp"
+                android:textColor="#000"
+                android:textAllCaps="false"
+
+
+                android:background="@drawable/btn_purple"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:text="City"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/price_tv"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="Price"
-            android:textSize="20dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="30dp"
+            android:layout_gravity="end"
             android:textStyle="bold" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/btn_borrow"
-
             android:text="Borrow"/>
 
         <Button

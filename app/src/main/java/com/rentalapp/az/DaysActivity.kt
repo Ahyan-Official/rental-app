@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -21,6 +22,8 @@ class DaysActivity : AppCompatActivity() {
     lateinit var btn_save: Button
     lateinit var price_tv: TextView
     var total:Int=0
+    var saveNotPressed:Boolean = true;
+    var output: String = "Borrow"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_days)
@@ -33,7 +36,7 @@ class DaysActivity : AppCompatActivity() {
         btn_save = findViewById(R.id.btn_save)
         price_tv = findViewById(R.id.price_tv)
 
-
+        price_tv.text = "$"+price
         val seek = findViewById<SeekBar>(R.id.seekBar)
         seek.max = 10
         seek?.setOnSeekBarChangeListener(object :
@@ -54,11 +57,8 @@ class DaysActivity : AppCompatActivity() {
 
                 price_tv.text = "$"+total
 
+
                 //  Adding days
-
-
-
-
                 val current = LocalDateTime.now()
 
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -79,11 +79,9 @@ class DaysActivity : AppCompatActivity() {
                 ) // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
 
                 val sdf1 = SimpleDateFormat("MM-dd-yyyy")
-                val output: String = sdf1.format(c.getTime())
+                output = sdf1.format(c.getTime())
 
-                    Toast.makeText(this@DaysActivity,
-                    "Progress is: " + output ,
-                    Toast.LENGTH_SHORT).show()
+
 
             }
         })
@@ -91,23 +89,36 @@ class DaysActivity : AppCompatActivity() {
         btn_save.setOnClickListener {
 
 
+            if(seek.progress==0){
+                val snack = Snackbar.make(it,"Must select some days!",Snackbar.LENGTH_LONG)
+                snack.show()
+            }else{
 
-            Toast.makeText(this@DaysActivity, "Good Choice " , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DaysActivity, "Good Choice " , Toast.LENGTH_SHORT).show()
 
-            val sharedPreferences: SharedPreferences = this.getSharedPreferences("sharedPrefFile", Context.MODE_PRIVATE)
-            val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-            editor.putString("date",price_tv.text.toString())
-            editor.putInt("counter",counter)
-            editor.apply()
-            editor.commit()
+                val sharedPreferences: SharedPreferences = this.getSharedPreferences("sharedPrefFile", Context.MODE_PRIVATE)
+                val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+                editor.putString("date","Due back "+output)
+                editor.putInt("counter",counter)
+                editor.apply()
+                editor.commit()
+                saveNotPressed = false
+                onBackPressed()
 
-            onBackPressed()
+            }
 
-//            val intent = Intent(applicationContext, MainActivity::class.java)
-//            intent.putExtra("date",total)
-//            intent.putExtra("counter",counter)
-//
-//            startActivity(intent)
+
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if(saveNotPressed){
+            Toast.makeText(this@DaysActivity,
+                "Keep exploring for the right bike" ,
+                Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
